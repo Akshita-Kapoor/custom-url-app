@@ -10,9 +10,9 @@ const urlSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        visitedHistory: [{timeStamp: {type:Number}}]  
+        visitedHistory: [{timeStamp: {type: Number}}]  
     },
-    {timestamps: true}
+    {timestamp: true}
 );
 
 const URL = mongoose.model('url', urlSchema);
