@@ -4,7 +4,8 @@ const URL = require("../models/url");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    const allUrls = URL.find({});
+    if(!req.user) return redirect("/login");
+    const allUrls = URL.find({createdBy: req.user._id});
     return res.render("home", {
         urls: allUrls,
     });

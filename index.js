@@ -3,7 +3,7 @@ const path = require("path");
 const URL = require("./models/url");
 const cookieParser = require("cookie-parser");
 const { connectMongoDb } = require("./connect");
-const { restrictToLoggedinUserOnly } = require("./middleware/auth");
+const { restrictToLoggedinUserOnly, checkAuth } = require("./middleware/auth");
 
 const urlRoute = require("./routes/url");
 const staticRoute = require("./routes/staticRouter");
@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false })); // for form data
 app.use(cookieParser());
 
 app.use("/url", restrictToLoggedinUserOnly, urlRoute);
-app.use("/", staticRoute);
+app.use("/", checkAuth, staticRoute);
 app.use("/user", userRoute);
 
 app.get("/url/:shortId", async (req, res) => {
